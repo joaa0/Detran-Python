@@ -79,5 +79,54 @@ else:
 
     print("\nOpção inválida!")
 
+#DICIONARIO
+# Lista com as etapas da prova prática
+prova_pratica = [
+    {
+        "nome": "Ajustar banco e espelhos",
+        "descricao": "Antes de ligar o carro, ajuste o banco e os espelhos.",
+        "opcoes": ["Ajustar tudo corretamente", "Ignorar ajustes", "Ajustar só o banco"],
+        "resposta_correta": "Ajustar tudo corretamente",
+        "penalidade": "Falta leve"
+    },
+    {
+        "nome": "Colocar cinto de segurança",
+        "descricao": "Você deve colocar o cinto antes de iniciar.",
+        "opcoes": ["Colocar o cinto", "Não colocar", "Colocar depois de sair"],
+        "resposta_correta": "Colocar o cinto",
+        "penalidade": "Falta grave"
+    },
+    {
+        "nome": "Ligar o carro",
+        "descricao": "Ligue o carro corretamente.",
+        "opcoes": ["Dar partida com tudo certo", "Dar partida sem freio", "Errar a partida"],
+        "resposta_correta": "Dar partida com tudo certo",
+        "penalidade": "Falta média"
+    },
+    {
+        "nome": "Sair com o veículo",
+        "descricao": "Inicie o movimento do carro com segurança.",
+        "opcoes": ["Sair devagar e sinalizar", "Sair rápido", "Não sinalizar"],
+        "resposta_correta": "Sair devagar e sinalizar",
+        "penalidade": "Falta média"
+    },
+    {
+        "nome": "Parada obrigatória",
+        "descricao": "Você encontra uma placa de pare.",
+        "opcoes": ["Parar totalmente", "Reduzir sem parar", "Ignorar a placa"],
+        "resposta_correta": "Parar totalmente",
+        "penalidade": "Falta gravíssima"
+    },
+    {
+        "nome": "Estacionar o veículo",
+        "descricao": "Realize a baliza corretamente.",
+        "opcoes": ["Estacionar correto", "Subir na calçada", "Bater no cone"],
+        "resposta_correta": "Estacionar correto",
+        "penalidade": "Eliminação"
+    }
+]
 
+# Exemplo de uso
+for etapa in prova_pratica:
+    print(etapa["nome"])
 
