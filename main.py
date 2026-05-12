@@ -28,57 +28,6 @@ def validar_sistema():
 
 print("=" * 70)
 
-print("""
-
-██████╗ ███████╗████████╗██████╗  █████╗ ███╗   ██╗
-██╔══██╗██╔════╝╚══██╔══╝██╔══██╗██╔══██╗████╗  ██║
-██║  ██║█████╗     ██║   ██████╔╝███████║██╔██╗ ██║
-██║  ██║██╔══╝     ██║   ██╔══██╗██╔══██║██║╚██╗██║
-██████╔╝███████╗   ██║   ██║  ██║██║  ██║██║ ╚████║
-╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
-
-""")
-
-print("=" * 70)
-print("      SIMULADOR DE PROVA PRÁTICA DE AUTOESCOLA")
-print("=" * 70)
-
-# MENU
-print("\n[1] INICIAR PROVA")
-print("[2] INSTRUÇÕES")
-print("[3] CRÉDITOS")
-print("[4] SAIR")
-
-print("\n" + "-" * 70)
-
-# ESCOLHA
-opcao = input("Escolha uma opção: ")
-
-# OPÇÕES
-if opcao == "1":
-
-    print("\nIniciando prova...\n")
-    validar_sistema()
-
-elif opcao == "2":
-
-    print("\nINSTRUÇÕES:")
-    print("Digite o número da opção desejada.")
-    print("Responda as perguntas corretamente.")
-
-elif opcao == "3":
-
-    print("\nCRÉDITOS:")
-    print("Projeto simples criado em Python.")
-
-elif opcao == "4":
-
-    print("\nSaindo do sistema...")
-
-else:
-
-    print("\nOpção inválida!")
-
 #DICIONARIO
 # Lista com as etapas da prova prática
 prova_pratica = [
@@ -126,7 +75,132 @@ prova_pratica = [
     }
 ]
 
-# Exemplo de uso
-for etapa in prova_pratica:
-    print(etapa["nome"])
+# Placeholders para sistema de perguntas
+
+def fazer_pergunta_placeholder(etapa):
+    """
+    Placeholder para a Task 3 (Sistema de perguntas).
+    Exibe a pergunta, captura o input e retorna a resposta do usuário.
+    """
+    print(f"\n--- ETAPA: {etapa['nome']} ---")
+    print(f"Situação: {etapa['descricao']}")
+    
+    print("Opções:")
+    for i, opcao in enumerate(etapa['opcoes'], 1):
+        print(f"[{i}] {opcao}")
+    
+    resposta = input("Escolha a opção correta (número): ")
+    return resposta
+
+
+def validar_resposta_placeholder(resposta_usuario, etapa):
+    """
+    Placeholder para a Task 5 (Validação).
+    Verifica se a escolha do usuário bate com a resposta correta.
+    """
+    try:
+        indice = int(resposta_usuario) - 1
+        escolha = etapa['opcoes'][indice]
+        return escolha == etapa['resposta_correta']
+    except (ValueError, IndexError):
+        return False
+
+
+# Fluxo da prova
+
+def iniciar_prova_fluxo(etapas):
+    """
+    Controla o loop principal da prova, passando por todas as etapas.
+    """
+    pontos = 100 # Placeholder para a Task 6 (Pontuação inicial)
+    
+    print("\n" + "=" * 50)
+    print("🚗 INÍCIO DA PROVA PRÁTICA 🚗")
+    print("=" * 50)
+    
+    # Percorrer todas as etapas em sequência
+    for etapa in etapas:
+        # Condição de Game Over se os pontos zerarem
+        if pontos <= 0:
+            print("\n❌ GAME OVER! Você perdeu todos os seus pontos.")
+            break
+            
+        print(f"\n[Pontuação atual: {pontos}]")
+        
+        # Executar a etapa usando a função de perguntas
+        resposta = fazer_pergunta_placeholder(etapa)
+        
+        # Validação e Feedback
+        acertou = validar_resposta_placeholder(resposta, etapa)
+        
+        if acertou:
+            print("\n✅ Correto! Você avançou para a próxima etapa.")
+        else:
+            print(f"\n❌ Errado! Você cometeu uma {etapa['penalidade']}.")
+            # Placeholder de dedução de pontos
+            pontos -= 20 
+            
+        input("\n(Pressione ENTER para continuar...)")
+
+    # Critério de conclusão: Mostrar aprovação ao concluir a prova
+    print("\n" + "=" * 50)
+    if pontos > 0:
+        print(f"🎉 PARABÉNS! Você foi APROVADO na prova prática com {pontos} pontos! 🎉")
+    else:
+        print("❌ Você foi REPROVADO. Estude mais e tente novamente.")
+    print("=" * 50)
+
+print("""
+
+██████╗ ███████╗████████╗██████╗  █████╗ ███╗   ██╗
+██╔══██╗██╔════╝╚══██╔══╝██╔══██╗██╔══██╗████╗  ██║
+██║  ██║█████╗     ██║   ██████╔╝███████║██╔██╗ ██║
+██║  ██║██╔══╝     ██║   ██╔══██╗██╔══██║██║╚██╗██║
+██████╔╝███████╗   ██║   ██║  ██║██║  ██║██║ ╚████║
+╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
+
+""")
+
+print("=" * 70)
+print("      SIMULADOR DE PROVA PRÁTICA DE AUTOESCOLA")
+print("=" * 70)
+
+# MENU
+print("\n[1] INICIAR PROVA")
+print("[2] INSTRUÇÕES")
+print("[3] CRÉDITOS")
+print("[4] SAIR")
+
+print("\n" + "-" * 70)
+
+# ESCOLHA
+opcao = input("Escolha uma opção: ")
+
+# OPÇÕES
+if opcao == "1":
+
+    print("\nIniciando prova...\n")
+    validar_sistema()
+    iniciar_prova_fluxo(prova_pratica)
+
+elif opcao == "2":
+
+    print("\nINSTRUÇÕES:")
+    print("Digite o número da opção desejada.")
+    print("Responda as perguntas corretamente.")
+
+elif opcao == "3":
+
+    print("\nCRÉDITOS:")
+    print("Projeto simples criado em Python.")
+
+elif opcao == "4":
+
+    print("\nSaindo do sistema...")
+
+else:
+
+    print("\nOpção inválida!")
+
+
 
