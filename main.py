@@ -26,6 +26,17 @@ def validar_sistema():
 
     print(f"\n✅ Cadastro realizado: {nome}, {idade} anos, Categoria {cat}")
 
+
+def mostrar_titulo(texto):
+    linha = "=" * 50
+    print("\n" + linha)
+    print(texto.center(50))
+    print(linha)
+
+
+def mostrar_bloco(texto):
+    print(f"\n{text}")
+
 print("=" * 70)
 
 #DICIONARIO
@@ -75,27 +86,22 @@ prova_pratica = [
     }
 ]
 
-# Placeholders para sistema de perguntas
-
-def fazer_pergunta_placeholder(etapa):
+def fazer_pergunta(etapa):
     """
-    Placeholder para a Task 3 (Sistema de perguntas).
     Exibe a pergunta, captura o input e retorna a resposta do usuário.
     """
-    print(f"\n--- ETAPA: {etapa['nome']} ---")
+    mostrar_titulo(f"ETAPA: {etapa['nome']}")
     print(f"Situação: {etapa['descricao']}")
-    
-    print("Opções:")
+    print("Escolha uma das opções abaixo:")
     for i, opcao in enumerate(etapa['opcoes'], 1):
         print(f"[{i}] {opcao}")
-    
-    resposta = input("Escolha a opção correta (número): ")
+
+    resposta = input("Sua resposta: ").strip()
     return resposta
 
 
-def validar_resposta_placeholder(resposta_usuario, etapa):
+def validar_resposta(resposta_usuario, etapa):
     """
-    Placeholder para a Task 5 (Validação).
     Verifica se a escolha do usuário bate com a resposta correta.
     """
     try:
@@ -106,17 +112,67 @@ def validar_resposta_placeholder(resposta_usuario, etapa):
         return False
 
 
+def obter_pontos_da_falta(tipo_falta):
+    """
+    Retorna a quantidade de pontos perdidos de acordo com o tipo da falta.
+    """
+    pontos_por_falta = {
+        "Falta leve": 5,
+        "Falta média": 10,
+        "Falta grave": 15,
+        "Falta gravíssima": 20,
+        "Eliminação": 50
+    }
+    return pontos_por_falta.get(tipo_falta, 0)
+
+
+def mostrar_feedback_correto(pontos_atual):
+    print("\n┌──────────────────────────────────────────┐")
+    print("│              RESPOSTA CERTA              │")
+    print("├──────────────────────────────────────────┤")
+    print("│ Você executou a etapa corretamente.      │")
+    print(f"│ Pontuação atual: {pontos_atual:<22}│")
+    print("└──────────────────────────────────────────┘")
+
+
+def mostrar_feedback_erro(etapa, pontos_perdidos, pontos_restantes):
+    print("\n┌──────────────────────────────────────────┐")
+    print("│                ATENÇÃO                   │")
+    print("├──────────────────────────────────────────┤")
+    print(f"│ Falta cometida: {etapa['penalidade']:<20}│")
+    print(f"│ Resposta certa: {etapa['resposta_correta'][:20]:<20}│")
+    print(f"│ Perda de pontos: -{pontos_perdidos:<18}│")
+    print(f"│ Pontuação atual: {pontos_restantes:<22}│")
+    print("│ Dica: confira a ação correta e tente      │")
+    print("│ manter a calma na próxima etapa.          │")
+    print("└──────────────────────────────────────────┘")
+
+
+def mostrar_resumo_final(pontos, erros):
+    mostrar_titulo("RESUMO FINAL")
+    print(f"Pontuação final: {max(pontos, 0)}")
+    print(f"Total de erros: {len(erros)}")
+
+    if erros:
+        print("\nErros cometidos:")
+        for erro in erros:
+            print(f"- {erro['etapa']}: {erro['falta']} (-{erro['pontos_perdidos']} pontos)")
+    else:
+        print("\nVocê não cometeu erros.")
+
+
 # Fluxo da prova
 
 def iniciar_prova_fluxo(etapas):
     """
     Controla o loop principal da prova, passando por todas as etapas.
     """
-    pontos = 100 # Placeholder para a Task 6 (Pontuação inicial)
+    pontos = 100
+    erros = []
     
-    print("\n" + "=" * 50)
-    print("🚗 INÍCIO DA PROVA PRÁTICA 🚗")
-    print("=" * 50)
+    mostrar_titulo("INÍCIO DA PROVA PRÁTICA")
+    print("Você verá uma situação por vez.")
+    print("Responda com atenção ao número correto.\n")
     
     # Percorrer todas as etapas em sequência
     for etapa in etapas:
@@ -128,27 +184,33 @@ def iniciar_prova_fluxo(etapas):
         print(f"\n[Pontuação atual: {pontos}]")
         
         # Executar a etapa usando a função de perguntas
-        resposta = fazer_pergunta_placeholder(etapa)
+        resposta = fazer_pergunta(etapa)
         
         # Validação e Feedback
-        acertou = validar_resposta_placeholder(resposta, etapa)
+        acertou = validar_resposta(resposta, etapa)
         
         if acertou:
-            print("\n✅ Correto! Você avançou para a próxima etapa.")
+            mostrar_feedback_correto(pontos)
         else:
-            print(f"\n❌ Errado! Você cometeu uma {etapa['penalidade']}.")
-            # Placeholder de dedução de pontos
-            pontos -= 20 
+            pontos_perdidos = obter_pontos_da_falta(etapa['penalidade'])
+            pontos -= pontos_perdidos
+            mostrar_feedback_erro(etapa, pontos_perdidos, max(pontos, 0))
+            erros.append({
+                "etapa": etapa["nome"],
+                "falta": etapa["penalidade"],
+                "pontos_perdidos": pontos_perdidos
+            })
             
-        input("\n(Pressione ENTER para continuar...)")
+        input("\nPressione ENTER para seguir para a próxima etapa...")
 
     # Critério de conclusão: Mostrar aprovação ao concluir a prova
-    print("\n" + "=" * 50)
+    mostrar_titulo("RESULTADO DA PROVA")
     if pontos > 0:
-        print(f"🎉 PARABÉNS! Você foi APROVADO na prova prática com {pontos} pontos! 🎉")
+        print(f"🎉 APROVADO! Você terminou a prova com {pontos} pontos.")
     else:
-        print("❌ Você foi REPROVADO. Estude mais e tente novamente.")
-    print("=" * 50)
+        print("❌ REPROVADO. Você zerou a pontuação da prova.")
+
+    mostrar_resumo_final(pontos, erros)
 
 print("""
 
@@ -164,43 +226,38 @@ print("""
 print("=" * 70)
 print("      SIMULADOR DE PROVA PRÁTICA DE AUTOESCOLA")
 print("=" * 70)
+print("Treine situações comuns da prova e acompanhe seu desempenho.")
 
-# MENU
-print("\n[1] INICIAR PROVA")
-print("[2] INSTRUÇÕES")
-print("[3] CRÉDITOS")
-print("[4] SAIR")
+while True:
+    mostrar_titulo("MENU PRINCIPAL")
+    print("[1] Iniciar prova")
+    print("[2] Instruções")
+    print("[3] Créditos")
+    print("[4] Sair")
 
-print("\n" + "-" * 70)
+    print("\n" + "-" * 70)
 
-# ESCOLHA
-opcao = input("Escolha uma opção: ")
+    opcao = input("Escolha uma opção: ").strip()
 
-# OPÇÕES
-if opcao == "1":
+    if opcao == "1":
+        print("\nPreparando a prova...\n")
+        validar_sistema()
+        iniciar_prova_fluxo(prova_pratica)
 
-    print("\nIniciando prova...\n")
-    validar_sistema()
-    iniciar_prova_fluxo(prova_pratica)
+    elif opcao == "2":
+        mostrar_titulo("INSTRUÇÕES")
+        print("1. Digite apenas o número da opção desejada.")
+        print("2. Leia cada situação com calma.")
+        print("3. Cada erro desconta pontos conforme a gravidade.")
 
-elif opcao == "2":
+    elif opcao == "3":
+        mostrar_titulo("CRÉDITOS")
+        print("Projeto simples criado em Python.")
+        print("Foco em aprendizado e prática.")
 
-    print("\nINSTRUÇÕES:")
-    print("Digite o número da opção desejada.")
-    print("Responda as perguntas corretamente.")
+    elif opcao == "4":
+        print("\nSaindo do sistema...")
+        break
 
-elif opcao == "3":
-
-    print("\nCRÉDITOS:")
-    print("Projeto simples criado em Python.")
-
-elif opcao == "4":
-
-    print("\nSaindo do sistema...")
-
-else:
-
-    print("\nOpção inválida!")
-
-
-
+    else:
+        print("\n⚠️  Opção inválida. Digite apenas um número entre 1 e 4.")

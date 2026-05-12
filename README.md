@@ -1,135 +1,75 @@
-```md
-# 🎮 Detran-Python
+# Detran-Python
 
-## 📌 Sobre o projeto
-O **Detran-Python** é um jogo simples em Python, executado no terminal, desenvolvido para simular os passos lógicos de uma prova prática de autoescola.
+Simulador simples de prova prática de autoescola feito em Python, para rodar no terminal. O projeto foi mantido propositalmente beginner-friendly, com lógica direta e sem dependências externas.
 
-O jogador deve seguir corretamente a sequência de ações exigidas durante a prova. A cada erro, perde pontos. O jogo termina quando os pontos chegam a **0**.
+## Sobre o projeto
 
----
+O usuário acessa um menu inicial, pode iniciar a prova, ler instruções, ver créditos ou sair. Durante a prova, cada etapa apresenta uma situação com alternativas, valida a resposta digitada e aplica a pontuação conforme o tipo de falta cometida.
 
-## 🎯 Objetivo
-Criar um jogo funcional e didático, focado em:
-- Lógica de programação
-- Uso de estruturas básicas do Python
-- Trabalho em equipe
-- Organização de código simples
+Ao final, o sistema mostra:
 
----
+- o resultado da prova;
+- a pontuação final;
+- o total de erros;
+- o resumo das faltas cometidas.
 
-## 🕹️ Como funciona
-- O jogador começa com uma quantidade de pontos (ex: 100)
-- O jogo apresenta etapas da prova
-- Para cada etapa, o jogador responde uma pergunta
-- Se errar:
-  - perde pontos
-- Se acertar:
-  - continua normalmente
-- O jogo termina quando:
-  - os pontos chegam a 0 (Game Over)
-  - ou todas as etapas são concluídas
+## Funcionalidades atuais
 
----
+- menu principal em loop com `while`;
+- validação da opção digitada no menu;
+- cadastro simples do condutor antes da prova;
+- perguntas por etapa com opções numeradas;
+- validação da resposta informada pelo usuário;
+- pontuação diferente para cada tipo de falta;
+- feedback visual mais claro para acerto, erro e resultado final;
+- resumo final com os erros cometidos.
 
-## 💻 Tecnologias utilizadas
-- Python 3
-- Execução via terminal (CLI)
+## Como executar
 
----
-
-## 📂 Estrutura básica do projeto
-
-```
-
-detran-python/
-│
-├── main.py              # Arquivo principal
-├── etapas.py            # Etapas da prova
-├── perguntas.py         # Perguntas e respostas
-├── validacao.py         # Validação de respostas
-├── pontuacao.py         # Sistema de pontos
-├── feedback.py          # Mensagens do jogo
-└── README.md
-
-````
-
----
-
-## 🚀 Como executar o projeto
-
-### 1. Clonar ou baixar o projeto
-```bash
-git clone <url-do-repositorio>
-cd detran-python
-````
-
-### 2. Executar o jogo
+1. Abra um terminal na pasta do projeto.
+2. Execute:
 
 ```bash
 python main.py
 ```
 
----
+Se o seu ambiente usar `python3`, execute:
 
-## 🧩 Organização do desenvolvimento
-
-O projeto foi dividido em **8 tarefas**, cada integrante do grupo é responsável por uma parte:
-
-* Estrutura base do jogo
-* Etapas da prova
-* Sistema de perguntas
-* Fluxo principal
-* Validação de respostas
-* Sistema de pontuação
-* Feedback do jogo
-* Integração final
-
----
-
-## ⚠️ Regras de desenvolvimento
-
-* Código simples (nível iniciante)
-* Evitar complexidade desnecessária
-* Funções pequenas e claras
-* Testar sempre no terminal
-* Manter organização do código
-
----
-
-## ✅ Exemplo de execução
-
-```
-Você ajustou o banco?
-> sim
-
-✅ Correto!
-
-Você colocou o cinto?
-> não
-
-❌ Errado! -10 pontos
-
-Pontos: 90
+```bash
+python3 main.py
 ```
 
----
+## Estrutura do projeto
 
-## 👨‍💻 Equipe
+O projeto está concentrado principalmente em um arquivo:
 
-Projeto desenvolvido por estudantes de TI (1º semestre), com foco em aprendizado prático de Python.
-
----
-
-## 📌 Observações finais
-
-Este projeto é apenas a primeira versão (Milestone 1), focada no funcionamento no terminal.
-
-Possíveis evoluções futuras:
-
-* Interface gráfica (pygame)
-* Sons e animações
-* Sistema mais complexo de pontuação
-* Melhor experiência do usuário
-
+```text
+main.py
 ```
-```
+
+Esse arquivo contém:
+
+- o cadastro do condutor;
+- as etapas da prova prática;
+- a validação das respostas;
+- o cálculo da pontuação;
+- o feedback exibido ao usuário;
+- o menu principal do sistema.
+
+## Regras do jogo
+
+- o usuário começa com 100 pontos;
+- cada erro desconta pontos conforme a gravidade da falta;
+- se a pontuação chegar a zero, a prova é encerrada;
+- se concluir as etapas com pontos acima de zero, o usuário é aprovado.
+
+## Tecnologias
+
+- Python 3
+- Interface de texto no terminal
+
+## Observações
+
+- O projeto foi pensado para estudo e prática de lógica.
+- O código segue uma estrutura simples para facilitar leitura e manutenção.
+- Não há banco de dados, interface gráfica ou dependências externas.
